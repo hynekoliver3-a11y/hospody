@@ -1,5 +1,3 @@
-import { SubmitButton } from "@/components/ui";
-import { employeeLogout } from "@/app/tablet/actions";
 import { getT } from "@/i18n/server";
 import { requireEmployee } from "@/lib/auth";
 import { occurrencesForDay, recordKey } from "@/lib/tasks/schedule";
@@ -8,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { TaskTemplate } from "@/lib/types";
 import { Checklist } from "./checklist";
 import { IdleLogout } from "./idle-logout";
+import { LogoutButton } from "./sync";
 import type { ChecklistItem, DoneRecord } from "./types";
 
 export const metadata = { title: "Dnešní úkoly" };
@@ -68,7 +67,7 @@ export default async function TasksPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-5 px-3 py-4 sm:px-4">
-      <IdleLogout />
+      <IdleLogout userId={viewer.userId} />
       <header className="flex items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">{t("tasks.title")}</h1>
@@ -76,9 +75,7 @@ export default async function TasksPage() {
             {employee.name} · {location?.name}
           </p>
         </div>
-        <form action={employeeLogout}>
-          <SubmitButton variant="secondary">{t("common.logout")}</SubmitButton>
-        </form>
+        <LogoutButton userId={viewer.userId} />
       </header>
       <Checklist
         items={items}

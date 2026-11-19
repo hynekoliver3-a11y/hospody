@@ -4,7 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useT } from "@/i18n/client";
 import { createClient } from "@/lib/supabase/client";
 import { formatLimits, outOfLimits, parseDecimal } from "@/lib/tasks/deviation";
+import { enqueue } from "@/lib/offline/queue";
 import { compressImage, submitRecord, type RecordInput, type SubmitContext } from "@/lib/tasks/submit";
+import { SyncBanner, useOfflineQueue } from "./sync";
 import type { ChecklistItem, DoneRecord } from "./types";
 
 type Status = "done" | "pending" | "overdue";
@@ -13,6 +15,7 @@ export function Checklist({ items, tz, ctx }: { items: ChecklistItem[]; tz: stri
   const t = useT();
   const [added, setAdded] = useState<Record<string, DoneRecord[]>>({});
   const [now, setNow] = useState(() => Date.now());
+  const { online, queued, syncing } = useOfflineQueue(ctx.userId);
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 60_000);
@@ -24,12 +27,27 @@ export function Checklist({ items, tz, ctx }: { items: ChecklistItem[]; tz: stri
     return items
       .map((item) => {
         const serverIds = new Set(item.records.map((r) => r.id));
-        const records = [...item.records, ...(added[item.key] ?? []).filter((r) => !serverIds.has(r.id))];
+        const pending: DoneRecord[] = queued
+          .filter((q) => q.occurrenceKey === item.key && !serverIds.has(q.id))
+          .map((q) => ({
+            id: q.id,
+            ...q.summary,
+            performer_name: "",
+            performed_at: q.input.performed_at,
+            photo_path: q.input.photo ? "local" : null,
+            pending: true,
+          }));
+        const pendingIds = new Set(pending.map((r) => r.id));
+        const records = [
+          ...item.records,
+          ...(added[item.key] ?? []).filter((r) => !serverIds.has(r.id) && !pendingIds.has(r.id)),
+          ...pending,
+        ];
         const status: Status = records.length ? "done" : now > Date.parse(item.due) ? "overdue" : "pending";
         return { item, records, status };
       })
       .sort((a, b) => order[a.status] - order[b.status] || Date.parse(a.item.due) - Date.parse(b.item.due));
-  }, [items, added, now]);
+  }, [items, added, now, queued]);
 
   const done = rows.filter((r) => r.status === "done").length;
 
@@ -37,6 +55,7 @@ export function Checklist({ items, tz, ctx }: { items: ChecklistItem[]; tz: stri
 
   return (
     <>
+      <SyncBanner online={online} queued={queued.length} syncing={syncing} />
       <div className="flex flex-col gap-2">
         <p className="text-lg font-semibold">{t("tasks.progress", { done, total: rows.length })}</p>
         <div className="h-3 overflow-hidden rounded-full bg-line" aria-hidden>
@@ -144,7 +163,22 @@ function TaskCard({
       corrective_action: deviation ? corrective : null,
       ...partial,
     };
-    const result = await submitRecord(createClient(), ctx, input);
+    const summary = {
+      value: input.value ?? null,
+      is_deviation: deviation,
+      details: input.details ?? {},
+      corrective_action: input.corrective_action ?? null,
+    };
+    // offline (nebo výpadek během odesílání) → uložit do zařízení, odešle se později
+    const result = navigator.onLine
+      ? await submitRecord(createClient(), ctx, input)
+      : ({ ok: false, error: "tasks.errors.network", retryable: true } as const);
+    if (!result.ok && result.retryable) {
+      await enqueue({ id: input.id, userId: ctx.userId, occurrenceKey: item.key, createdAt: new Date().toISOString(), ctx, input, summary });
+      setPending(false);
+      reset();
+      return;
+    }
     setPending(false);
     if (!result.ok) return setError(result.error);
     onSaved({
@@ -192,7 +226,7 @@ function TaskCard({
               className={`rounded-lg px-3 py-2 ${r.is_deviation ? "border-2 border-danger bg-danger-bg text-danger" : "bg-ok-bg text-ok"}`}
             >
               <span className="font-semibold">
-                ✓ {r.value != null && `${r.value.toLocaleString(locale)} ${item.unit} · `}
+                {r.pending ? "⏳" : "✓"} {r.value != null && `${r.value.toLocaleString(locale)} ${item.unit} · `}
                 {typeof r.details.supplier === "string" && `${r.details.supplier} · `}
                 {r.is_deviation && `${t("tasks.deviation")} · `}
                 {time.format(new Date(r.performed_at))}
@@ -200,6 +234,7 @@ function TaskCard({
                 {r.photo_path && " · 📷"}
               </span>
               {r.corrective_action && <span className="block text-sm">{r.corrective_action}</span>}
+              {r.pending && <span className="block text-sm font-semibold text-warn">{t("offline.queued")}</span>}
             </li>
           ))}
         </ul>

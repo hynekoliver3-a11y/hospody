@@ -79,6 +79,10 @@ values
   ('b0000000-0000-4000-8000-000000000008', 'c0000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001',
    'expiry', 'Kontrola trvanlivosti potravin', 'Projdi lednice a sklad, vyřaď potraviny po datu použitelnosti.', 'daily', '10:00', '21:00', null, null, null, false, 80);
 
+-- šablony existují už měsíc (jinak by se minulé nesplněné úkoly nepočítaly)
+update public.task_templates set created_at = now() - interval '30 days'
+ where location_id = '10000000-0000-4000-8000-000000000001';
+
 -- ---------------------------------------------------------------------------
 -- 14 dní záznamů
 -- ---------------------------------------------------------------------------

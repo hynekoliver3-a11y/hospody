@@ -9,6 +9,7 @@ export interface DoneRecord {
   details: Record<string, unknown>;
   corrective_action: string | null;
   photo_path: string | null;
+  pending?: boolean; // čeká v offline frontě
 }
 
 export interface ChecklistItem {
