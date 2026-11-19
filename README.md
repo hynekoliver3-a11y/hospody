@@ -72,8 +72,10 @@ Cron lokálně: `curl -H "Authorization: Bearer $CRON_SECRET" http://localhost:3
    (jinak odkaz v potvrzovacím e-mailu vede na localhost). Pro ostrý provoz nastavte vlastní SMTP – vestavěný má přísný limit.
 3. **Vercel:** Add New Project → import repozitáře z GitHubu → doplňte proměnné z tabulky výše → Deploy.
    Region funkcí `fra1` (blízko databáze).
-4. **Cron:** `vercel.json` spouští `/api/cron/alerts` každou hodinu. Pokud Vercel u vašeho plánu hodinový cron odmítne,
-   nastavte denní běh, nebo volejte endpoint hodinově z Supabase (`pg_cron` + `pg_net`, viz níže).
+4. **Cron:** Vercel Hobby povoluje jen denní cron (hodinový nasazení odmítne: *„Hobby accounts are limited to daily cron jobs“*).
+   Proto `vercel.json` spouští `/api/cron/alerts` 1× denně (záloha) a **hodinovou kontrolu volá Supabase** (`pg_cron` + `pg_net`, viz níže).
+   Na Vercel Pro stačí v `vercel.json` změnit schedule na `0 * * * *` a pg_cron job smazat. Deduplikace (`alert_log`) zajistí,
+   že souběh obou nepošle nic dvakrát.
 5. **Resend:** ověřte doménu odesílatele, vložte `RESEND_API_KEY` a `ALERT_FROM_EMAIL`.
 
 Hodinové volání ze Supabase (alternativa k Vercel Cronu):
