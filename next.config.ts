@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Aplikace je téměř celá per-uživatel dynamická (cookies, RLS) → bez Cache Components.
   turbopack: {
     rules: {
       "*.css": {

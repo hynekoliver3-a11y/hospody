@@ -1,0 +1,167 @@
+{
+  "app": {
+    "name": "HACCP deník",
+    "tagline": "Hygienické záznamy bez papírů"
+  },
+  "common": {
+    "save": "Uložit",
+    "saved": "Uloženo",
+    "cancel": "Zrušit",
+    "back": "Zpět",
+    "add": "Přidat",
+    "edit": "Upravit",
+    "delete": "Smazat",
+    "logout": "Odhlásit",
+    "loading": "Načítám…",
+    "yes": "Ano",
+    "no": "Ne",
+    "active": "Aktivní",
+    "inactive": "Neaktivní",
+    "optional": "nepovinné",
+    "required": "povinné"
+  },
+  "home": {
+    "ownerTitle": "Jsem majitel",
+    "ownerText": "Správa provozoven, zaměstnanců, přehledy a exporty.",
+    "ownerLogin": "Přihlásit se",
+    "ownerRegister": "Založit účet",
+    "tabletTitle": "Tablet provozovny",
+    "tabletText": "Přihlášení zaměstnance PINem.",
+    "tabletOpen": "Otevřít tablet"
+  },
+  "auth": {
+    "email": "E-mail",
+    "password": "Heslo",
+    "passwordHint": "Alespoň 8 znaků",
+    "name": "Vaše jméno",
+    "loginTitle": "Přihlášení majitele",
+    "loginSubmit": "Přihlásit se",
+    "noAccount": "Nemáte účet?",
+    "registerLink": "Zaregistrujte se",
+    "registerTitle": "Registrace majitele",
+    "registerSubmit": "Vytvořit účet",
+    "haveAccount": "Už máte účet?",
+    "loginLink": "Přihlaste se",
+    "checkEmail": "Poslali jsme vám e-mail s odkazem pro potvrzení účtu. Po potvrzení se přihlaste.",
+    "confirmFailed": "Odkaz pro potvrzení je neplatný nebo vypršel."
+  },
+  "onboarding": {
+    "title": "Založení firmy",
+    "intro": "Vyplňte údaje o firmě a první provozovně. Přednastavíme vám běžné HACCP úkoly, které pak můžete upravit.",
+    "companyName": "Název firmy",
+    "ico": "IČO",
+    "companyAddress": "Sídlo firmy",
+    "locationName": "Název provozovny",
+    "locationAddress": "Adresa provozovny",
+    "submit": "Založit firmu"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Přehled",
+      "locations": "Provozovny",
+      "templates": "Úkoly",
+      "allergens": "Alergeny",
+      "export": "Export"
+    },
+    "dashboardSoon": "Přehled plnění úkolů bude doplněn v další fázi.",
+    "locations": {
+      "title": "Provozovny",
+      "empty": "Zatím nemáte žádnou provozovnu.",
+      "new": "Nová provozovna",
+      "name": "Název",
+      "address": "Adresa",
+      "alertEmail": "E-mail pro upozornění",
+      "alertEmailHint": "Prázdné = e-mail majitele",
+      "create": "Přidat provozovnu",
+      "detail": "Nastavení provozovny",
+      "employeesCount": "{count} zaměstnanců"
+    },
+    "employees": {
+      "title": "Zaměstnanci",
+      "empty": "Zatím žádní zaměstnanci.",
+      "name": "Jméno",
+      "pin": "PIN (4 číslice)",
+      "add": "Přidat zaměstnance",
+      "changePin": "Změnit PIN",
+      "newPin": "Nový PIN",
+      "deactivate": "Deaktivovat",
+      "activate": "Aktivovat",
+      "pinChanged": "PIN byl změněn.",
+      "deactivatedNote": "Záznamy deaktivovaných zaměstnanců zůstávají v historii."
+    },
+    "devices": {
+      "title": "Tablety",
+      "intro": "Na tabletu provozovny se přihlaste jako majitel a klikněte na „Spárovat toto zařízení“. Tablet si provozovnu zapamatuje a vy budete odhlášeni.",
+      "empty": "Žádný spárovaný tablet.",
+      "deviceName": "Název zařízení",
+      "deviceNameDefault": "Tablet – kuchyň",
+      "pair": "Spárovat toto zařízení",
+      "revoke": "Odpojit",
+      "revoked": "Odpojeno",
+      "lastSeen": "Naposledy aktivní: {date}",
+      "never": "nikdy"
+    }
+  },
+  "tablet": {
+    "notPairedTitle": "Tablet není spárován",
+    "notPairedText": "Majitel musí toto zařízení jednou spárovat s provozovnou: přihlásit se, otevřít Provozovny → nastavení provozovny → Spárovat toto zařízení.",
+    "ownerLogin": "Přihlásit se jako majitel",
+    "whoAreYou": "Kdo jste?",
+    "noEmployees": "Provozovna nemá žádné aktivní zaměstnance s PINem.",
+    "enterPin": "Zadejte PIN",
+    "hello": "Dobrý den, {name}",
+    "clear": "Smazat",
+    "otherPerson": "Jiná osoba",
+    "pinInvalid": "Nesprávný PIN.",
+    "pinLocked": "Příliš mnoho pokusů. Zkuste to za 5 minut.",
+    "deviceInvalid": "Tablet byl odpojen. Majitel jej musí znovu spárovat."
+  },
+  "tasks": {
+    "title": "Dnešní úkoly",
+    "soon": "Checklist bude doplněn v další fázi."
+  },
+  "errors": {
+    "generic": "Něco se nepovedlo. Zkuste to znovu.",
+    "invalidCredentials": "Nesprávný e-mail nebo heslo.",
+    "emailTaken": "Účet s tímto e-mailem už existuje.",
+    "weakPassword": "Heslo musí mít alespoň 8 znaků.",
+    "invalidEmail": "Zadejte platný e-mail.",
+    "required": "Vyplňte povinná pole.",
+    "invalidIco": "IČO musí mít 8 číslic.",
+    "invalidPin": "PIN musí mít přesně 4 číslice.",
+    "notAllowed": "K této akci nemáte oprávnění.",
+    "notFound": "Nenalezeno."
+  },
+  "categories": {
+    "temperature": "Teplota",
+    "cleaning": "Úklid a sanitace",
+    "goods_receipt": "Příjem zboží",
+    "expiry": "Trvanlivost",
+    "other": "Ostatní"
+  },
+  "allergens": {
+    "1": "Obiloviny obsahující lepek",
+    "2": "Korýši",
+    "3": "Vejce",
+    "4": "Ryby",
+    "5": "Arašídy (podzemnice olejná)",
+    "6": "Sójové boby",
+    "7": "Mléko",
+    "8": "Skořápkové plody",
+    "9": "Celer",
+    "10": "Hořčice",
+    "11": "Sezamová semena",
+    "12": "Oxid siřičitý a siřičitany",
+    "13": "Vlčí bob (lupina)",
+    "14": "Měkkýši"
+  },
+  "defaultTemplates": [
+    { "category": "temperature", "title": "Lednice 1", "instructions": "Odečti teplotu z teploměru uvnitř lednice.", "frequency": "morning_evening", "due_time": "09:00", "evening_due_time": "21:00", "min_value": 0, "max_value": 5 },
+    { "category": "temperature", "title": "Mrazák", "instructions": "Teplota musí být −18 °C nebo nižší.", "frequency": "morning_evening", "due_time": "09:00", "evening_due_time": "21:00", "min_value": null, "max_value": -18 },
+    { "category": "temperature", "title": "Výdej teplých jídel", "instructions": "Změř vpichovým teploměrem jádro pokrmu (min. 60 °C).", "frequency": "daily", "due_time": "12:30", "min_value": 60, "max_value": null },
+    { "category": "cleaning", "title": "Úklid a dezinfekce pracovních ploch", "instructions": "Mycí prostředek, oplach, dezinfekce dle sanitačního plánu.", "frequency": "daily", "due_time": "22:00" },
+    { "category": "cleaning", "title": "Sanitace kuchyně – generální", "instructions": "Lednice, police, digestoř, podlahy, odpady.", "frequency": "weekly", "weekday": 1, "due_time": "22:00" },
+    { "category": "goods_receipt", "title": "Příjem zboží", "instructions": "Zkontroluj teplotu chlazeného zboží a neporušenost obalů.", "frequency": "daily", "due_time": "11:00", "min_value": 0, "max_value": 5, "repeatable": true },
+    { "category": "expiry", "title": "Kontrola trvanlivosti potravin", "instructions": "Projdi lednice a sklad, vyřaď potraviny po datu použitelnosti.", "frequency": "daily", "due_time": "10:00" }
+  ]
+}
