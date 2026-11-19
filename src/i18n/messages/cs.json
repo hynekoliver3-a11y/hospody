@@ -100,6 +100,55 @@
       "revoked": "Odpojeno",
       "lastSeen": "Naposledy aktivní: {date}",
       "never": "nikdy"
+    },
+    "templates": {
+      "title": "Úkoly a šablony",
+      "intro": "Nastavte, co mají zaměstnanci na provozovně dělat a kdy. Změny se projeví hned na tabletu.",
+      "location": "Provozovna",
+      "new": "Nový úkol",
+      "create": "Přidat úkol",
+      "empty": "Žádné úkoly.",
+      "inactive": "Vypnuté úkoly",
+      "fields": {
+        "title": "Název",
+        "category": "Typ",
+        "instructions": "Pokyny pro personál",
+        "frequency": "Frekvence",
+        "dueTime": "Termín",
+        "morningDue": "Ráno do",
+        "eveningDue": "Večer do",
+        "weekday": "Den v týdnu",
+        "min": "Minimum",
+        "max": "Maximum",
+        "unit": "Jednotka",
+        "photoRequired": "Vyžadovat fotku",
+        "repeatable": "Víc záznamů za den (např. každá dodávka)"
+      },
+      "frequency": {
+        "daily": "Denně",
+        "morning_evening": "Ráno a večer",
+        "weekly": "Týdně"
+      },
+      "weekdays": {
+        "1": "Pondělí",
+        "2": "Úterý",
+        "3": "Středa",
+        "4": "Čtvrtek",
+        "5": "Pátek",
+        "6": "Sobota",
+        "7": "Neděle"
+      },
+      "summary": {
+        "daily": "denně do {time}",
+        "morning_evening": "ráno do {morning}, večer do {evening}",
+        "weekly": "{day} do {time}"
+      },
+      "disable": "Vypnout",
+      "enable": "Zapnout",
+      "delete": "Smazat",
+      "deleteHasRecords": "Úkol má záznamy v historii – byl jen vypnut.",
+      "limitRequired": "U teploty vyplňte minimum nebo maximum.",
+      "limitOrder": "Minimum musí být menší než maximum."
     }
   },
   "tablet": {
@@ -118,7 +167,59 @@
   },
   "tasks": {
     "title": "Dnešní úkoly",
-    "soon": "Checklist bude doplněn v další fázi."
+    "progress": "Hotovo {done} z {total}",
+    "allDone": "Všechny dnešní úkoly jsou splněné.",
+    "nothingToday": "Na dnešek nejsou naplánované žádné úkoly.",
+    "due": "do {time}",
+    "slot": {
+      "morning": "Ráno",
+      "evening": "Večer",
+      "day": "",
+      "week": "Týdenní"
+    },
+    "status": {
+      "done": "Hotovo",
+      "pending": "Čeká",
+      "overdue": "Po termínu"
+    },
+    "doneBy": "{name}, {time}",
+    "markDone": "Hotovo",
+    "save": "Uložit",
+    "saveDeviation": "Uložit odchylku",
+    "temperature": "Teplota ({unit})",
+    "limit": "Limit: {range}",
+    "limitMin": "min. {min} {unit}",
+    "limitMax": "max. {max} {unit}",
+    "outOfLimit": "Mimo limit! Popište, co jste udělali.",
+    "correctiveAction": "Nápravná akce",
+    "correctivePlaceholder": "Např. zboží přesunuto, termostat snížen, kontrola za 30 min…",
+    "note": "Poznámka",
+    "photo": "Fotka",
+    "photoRequired": "Fotka je povinná.",
+    "addPhoto": "Vyfotit / přidat fotku",
+    "removePhoto": "Odebrat fotku",
+    "extras": "+ Fotka / poznámka",
+    "hideExtras": "Skrýt",
+    "expiryOk": "Vše v pořádku",
+    "expiryFound": "Našel jsem prošlé",
+    "expiryFoundLabel": "Co bylo vyřazeno?",
+    "receiptAdd": "Zapsat příjem",
+    "receiptAnother": "+ Další příjem",
+    "supplier": "Dodavatel",
+    "product": "Zboží",
+    "packageOk": "Obal v pořádku",
+    "packageDamaged": "Obal poškozený",
+    "receiptDeviation": "Odchylka při příjmu – uveďte, co jste udělali.",
+    "deviation": "Odchylka",
+    "saving": "Ukládám…",
+    "idleLogout": "Z bezpečnostních důvodů vás po {minutes} minutách nečinnosti odhlásíme.",
+    "errors": {
+      "correctiveRequired": "Vyplňte nápravnou akci.",
+      "valueRequired": "Zadejte naměřenou hodnotu.",
+      "dateOutOfRange": "Záznam je příliš starý.",
+      "photoUpload": "Fotku se nepodařilo nahrát. Zkuste to znovu nebo bez fotky.",
+      "network": "Nepodařilo se uložit. Zkontrolujte připojení a zkuste znovu."
+    }
   },
   "errors": {
     "generic": "Něco se nepovedlo. Zkuste to znovu.",
@@ -156,12 +257,66 @@
     "14": "Měkkýši"
   },
   "defaultTemplates": [
-    { "category": "temperature", "title": "Lednice 1", "instructions": "Odečti teplotu z teploměru uvnitř lednice.", "frequency": "morning_evening", "due_time": "09:00", "evening_due_time": "21:00", "min_value": 0, "max_value": 5 },
-    { "category": "temperature", "title": "Mrazák", "instructions": "Teplota musí být −18 °C nebo nižší.", "frequency": "morning_evening", "due_time": "09:00", "evening_due_time": "21:00", "min_value": null, "max_value": -18 },
-    { "category": "temperature", "title": "Výdej teplých jídel", "instructions": "Změř vpichovým teploměrem jádro pokrmu (min. 60 °C).", "frequency": "daily", "due_time": "12:30", "min_value": 60, "max_value": null },
-    { "category": "cleaning", "title": "Úklid a dezinfekce pracovních ploch", "instructions": "Mycí prostředek, oplach, dezinfekce dle sanitačního plánu.", "frequency": "daily", "due_time": "22:00" },
-    { "category": "cleaning", "title": "Sanitace kuchyně – generální", "instructions": "Lednice, police, digestoř, podlahy, odpady.", "frequency": "weekly", "weekday": 1, "due_time": "22:00" },
-    { "category": "goods_receipt", "title": "Příjem zboží", "instructions": "Zkontroluj teplotu chlazeného zboží a neporušenost obalů.", "frequency": "daily", "due_time": "11:00", "min_value": 0, "max_value": 5, "repeatable": true },
-    { "category": "expiry", "title": "Kontrola trvanlivosti potravin", "instructions": "Projdi lednice a sklad, vyřaď potraviny po datu použitelnosti.", "frequency": "daily", "due_time": "10:00" }
+    {
+      "category": "temperature",
+      "title": "Lednice 1",
+      "instructions": "Odečti teplotu z teploměru uvnitř lednice.",
+      "frequency": "morning_evening",
+      "due_time": "09:00",
+      "evening_due_time": "21:00",
+      "min_value": 0,
+      "max_value": 5
+    },
+    {
+      "category": "temperature",
+      "title": "Mrazák",
+      "instructions": "Teplota musí být −18 °C nebo nižší.",
+      "frequency": "morning_evening",
+      "due_time": "09:00",
+      "evening_due_time": "21:00",
+      "min_value": null,
+      "max_value": -18
+    },
+    {
+      "category": "temperature",
+      "title": "Výdej teplých jídel",
+      "instructions": "Změř vpichovým teploměrem jádro pokrmu (min. 60 °C).",
+      "frequency": "daily",
+      "due_time": "12:30",
+      "min_value": 60,
+      "max_value": null
+    },
+    {
+      "category": "cleaning",
+      "title": "Úklid a dezinfekce pracovních ploch",
+      "instructions": "Mycí prostředek, oplach, dezinfekce dle sanitačního plánu.",
+      "frequency": "daily",
+      "due_time": "22:00"
+    },
+    {
+      "category": "cleaning",
+      "title": "Sanitace kuchyně – generální",
+      "instructions": "Lednice, police, digestoř, podlahy, odpady.",
+      "frequency": "weekly",
+      "weekday": 1,
+      "due_time": "22:00"
+    },
+    {
+      "category": "goods_receipt",
+      "title": "Příjem zboží",
+      "instructions": "Zkontroluj teplotu chlazeného zboží a neporušenost obalů.",
+      "frequency": "daily",
+      "due_time": "11:00",
+      "min_value": 0,
+      "max_value": 5,
+      "repeatable": true
+    },
+    {
+      "category": "expiry",
+      "title": "Kontrola trvanlivosti potravin",
+      "instructions": "Projdi lednice a sklad, vyřaď potraviny po datu použitelnosti.",
+      "frequency": "daily",
+      "due_time": "10:00"
+    }
   ]
 }

@@ -30,7 +30,7 @@ const shots = process.env.SHOTS_DIR ?? require('os').tmpdir();
 
   await page.getByRole('button', { name: 'Spárovat toto zařízení' }).click();
   await page.waitForURL(B + '/tablet');
-  await page.getByText('Kdo jste?').waitFor(); step('tablet spárován, majitel odhlášen');
+  await page.getByRole('heading', { name: 'Kdo jste?' }).waitFor(); step('tablet spárován, majitel odhlášen');
   await page.screenshot({ path: shots + '/tablet-who.png' });
 
   await page.getByRole('button', { name: 'Jana Nováková' }).click();
@@ -39,15 +39,15 @@ const shots = process.env.SHOTS_DIR ?? require('os').tmpdir();
   await page.screenshot({ path: shots + '/tablet-pin.png' });
   for (const k of '1111') await page.getByRole('button', { name: k, exact: true }).click();
   await page.waitForURL(B + '/ukoly');
-  await page.getByText('Jana Nováková').waitFor(); step('Jana přihlášena PINem → /ukoly');
-  const adm = await page.goto(B + '/admin'); await page.waitForURL(B + '/ukoly'); step('zaměstnanec nemá přístup do /admin');
+  await page.getByText(/^Jana Nováková ·/).waitFor(); step('Jana přihlášena PINem → /ukoly');
+  await page.goto(B + '/admin'); await page.waitForURL(B + '/ukoly'); step('zaměstnanec nemá přístup do /admin');
   await page.getByRole('button', { name: 'Odhlásit' }).click();
   await page.waitForURL(B + '/tablet'); step('odhlášení zpět na tablet');
 
   await page.getByRole('button', { name: 'Tomáš Testovací' }).click();
   for (const k of '4444') await page.getByRole('button', { name: k, exact: true }).click();
   await page.waitForURL(B + '/ukoly');
-  await page.getByText('Tomáš Testovací').waitFor(); step('nový zaměstnanec přihlášen PINem');
+  await page.getByText(/^Tomáš Testovací ·/).waitFor(); step('nový zaměstnanec přihlášen PINem');
 
   // nový majitel v čistém kontextu
   const p2 = await (await browser.newContext()).newPage();
